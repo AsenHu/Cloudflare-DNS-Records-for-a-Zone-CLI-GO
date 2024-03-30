@@ -47,6 +47,10 @@ jobs:
             goos: linux
             goarch: amd64
             goamd64: v4
+
+          - name: cf-cli-darwin-arm64-v8
+            goos: darwin
+            goarch: arm64
     env:
       GOOS: ${{matrix.goos}}
       GOARCH: ${{matrix.goarch}}
