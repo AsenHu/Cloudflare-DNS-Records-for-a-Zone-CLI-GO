@@ -48,8 +48,9 @@ func FailPrintf(format string, a ...any) {
 }
 
 type SecurityConfiguration struct {
-	XAuthEmail string `json:"x_auth_email"`
-	XAuthKey   string `json:"x_auth_key"`
+	XAuthEmail string `json:"x_auth_email,omitempty"`
+	XAuthKey   string `json:"x_auth_key,omitempty"`
+	APIToken   string `json:"api_token,omitempty"`
 }
 
 func (c *SecurityConfiguration) Save() error {
@@ -116,8 +117,14 @@ func UseQueryParametersWithMap(sets map[string]string) RequestOption {
 
 func UseSecurity(c *SecurityConfiguration) RequestOption {
 	return func(r *http.Request) {
-		r.Header.Set("X-Auth-Email", c.XAuthEmail)
-		r.Header.Set("X-Auth-Key", c.XAuthKey)
+		if c.XAuthEmail != "" && c.XAuthKey != "" {
+			r.Header.Set("X-Auth-Email", c.XAuthEmail)
+			r.Header.Set("X-Auth-Key", c.XAuthKey)
+		}
+
+		if c.APIToken != "" {
+			r.Header.Set("Authorization", fmt.Sprintf("Bearer %s", c.APIToken))
+		}
 	}
 }
 

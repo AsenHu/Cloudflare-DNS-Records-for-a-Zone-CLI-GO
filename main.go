@@ -40,6 +40,10 @@ func main() {
 						Name:  "x-auth-key",
 						Usage: "Cloudflare auth key",
 					},
+					&cli.StringFlag{
+						Name:  "api-token",
+						Usage: "Cloudflare API token",
+					},
 				},
 				Action: handler.Setup,
 			},

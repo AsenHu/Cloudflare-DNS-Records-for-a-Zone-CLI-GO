@@ -22,11 +22,12 @@ func (h *Handler) Setup(c *cli.Context) error {
 	newConfiguration := &SecurityConfiguration{
 		XAuthEmail: c.String("x-auth-email"),
 		XAuthKey:   c.String("x-auth-key"),
+		APIToken:   c.String("api-token"),
 	}
 
-	if newConfiguration.XAuthEmail == "" || newConfiguration.XAuthKey == "" {
-		return cli.Exit("Invalid configuration", 0)
-	}
+	//if newConfiguration.XAuthEmail == "" || newConfiguration.XAuthKey == "" && newConfiguration.APIToken == "" {
+	//	return cli.Exit("Invalid configuration", 0)
+	//}
 
 	return newConfiguration.Save()
 }
