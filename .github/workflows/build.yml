@@ -65,12 +65,12 @@ jobs:
           go-version: 'stable'
       - name: build
         run : |
-          go build -o "${{env.name}}"
-          xz -9v "${{env.name}}"
+          go build -o "${{matrix.name}}"
+          xz -9v "${{matrix.name}}"
       - name: upload
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload "${{needs.prepare.outputs.sha}}" "${{env.name}}.xz" \
+          gh release upload "${{needs.prepare.outputs.sha}}" "${{matrix.name}}.xz" \
             --clobber \
             --repo="${{github.repository}}"
